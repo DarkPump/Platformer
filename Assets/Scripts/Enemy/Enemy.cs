@@ -28,8 +28,6 @@ public class Enemy : MonoBehaviour
     {
         Vector2 difference = (other.transform.position - transform.position).normalized;
         Vector2 force = difference * knockbackForce;
-        Debug.Log(force);
-        Debug.Log(difference);
         Player player = other.gameObject.GetComponent<Player>();
         if(player)
         {

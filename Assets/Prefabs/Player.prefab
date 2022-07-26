@@ -191,6 +191,7 @@ MonoBehaviour:
   speed: 300
   jumpingPower: 750
   jumpRadius: 0.1
+  canMove: 1
   groundCheck: {fileID: 2994500726835057855}
   groundLayer:
     serializedVersion: 2
@@ -201,7 +202,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damage: 1
-  attackRate: 2
+  attackDelay: 0.3
 --- !u!114 &2994500726192211769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +295,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
-  iFramesDuration: 1
+  iFramesDuration: 0.25
+  animator: {fileID: 0}
+  components: []
 --- !u!1 &2994500726584857143
 GameObject:
   m_ObjectHideFlags: 0

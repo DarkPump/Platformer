@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Header("Health")]
+    [Header ("Health")]
     public int maxHealth = 2;
     public int currentHealth;
-    private bool isDead = false;
+    [System.NonSerialized] public bool isDead = false;
     private bool isInvulnerable = false;
     private Healthbar playerHealthbar;
 
-    [SerializeField] private float iFramesDuration;
+    [Header("IFrames")]
+    [SerializeField] private float iFramesDuration = 0.25f;
+
+    [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private Behaviour[] components;
     // Start is called before the first frame update
     private void Awake() 
     {
         animator = GetComponent<Animator>();
-        playerHealthbar = GetComponent<Healthbar>();
+        if(gameObject.CompareTag("Player"))
+            playerHealthbar = gameObject.GetComponent<Healthbar>();
+
     }
     void Start()
     {
@@ -35,22 +40,22 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (isInvulnerable) return;
-        Debug.Log("TakeDamage " + maxHealth);
+
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
         if(currentHealth > 0)
         {
             animator.SetTrigger("Damage");
+
             if(gameObject.CompareTag("Player"))
-            {
-                Debug.Log("zmie� serduszka");
-                gameObject.GetComponent<Healthbar>().ChangeHeartSprite();
-            }
+                playerHealthbar.ChangeHeartSprite();
+            
             StartCoroutine(Invulnerability());
         }
         else
         {
             if(gameObject.tag == "Player")
-                gameObject.GetComponent<Healthbar>().ChangeHeartSprite();
+                playerHealthbar.ChangeHeartSprite();
+
             if(!isDead)
             {
                 Death();
@@ -73,8 +78,14 @@ public class Health : MonoBehaviour
     {
         isInvulnerable = true;
         Physics2D.IgnoreLayerCollision(8, 7, true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(iFramesDuration);
         Physics2D.IgnoreLayerCollision(8, 7, false);
         isInvulnerable = false;
+    }
+
+    public void AddHealth(int value)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
+        playerHealthbar.ChangeHeartSprite();
     }
 }
