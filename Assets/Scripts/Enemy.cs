@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 2;
-    private int currentHealth;
-
     private Animator animator;
+    [SerializeField] private Health playerHealth;
+
+    [Header("Enemy parameters")]
+    [SerializeField] private int damage;
+    [SerializeField] private float knockbackForce = 10f;
+    [SerializeField] private float knockbackVerticalForce = 5f;
+    [SerializeField] private float knockbackDuration = 0.25f;
+
 
     private void Awake() 
     {
@@ -17,23 +22,42 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        
     }
-
-    public void TakeDamage(int damage)
+    private void OnCollisionEnter2D(Collision2D other) 
     {
-        currentHealth = currentHealth - damage;
-        animator.SetTrigger("Damage");
-
-        if(currentHealth <= 0)
+        Vector2 difference = (other.transform.position - transform.position).normalized;
+        Vector2 force = difference * knockbackForce;
+        Debug.Log(force);
+        Debug.Log(difference);
+        Player player = other.gameObject.GetComponent<Player>();
+        if(player)
         {
-            Death();
+            player.GetComponent<Health>().TakeDamage(damage);
+            StartCoroutine(Knockback(knockbackForce, knockbackVerticalForce, other));
         }
     }
 
-    private void Death()
+    private IEnumerator Knockback(float knockbackForce, float knockbackVerticalForce, Collision2D other)
     {
-        animator.SetBool("IsDead", true);
-        Destroy(gameObject, 1);
+        Player player = other.gameObject.GetComponent<Player>();
+        //Przeciwnik jest po prawej stronie
+        if(transform.position.x > other.transform.position.x)
+        {
+            player.canMove = false;
+            player.GetComponent<Rigidbody2D>().AddForce(Vector2.left * knockbackForce, ForceMode2D.Impulse);
+            player.GetComponent<Rigidbody2D>().AddForce(Vector2.up * knockbackVerticalForce, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(knockbackDuration);
+            player.canMove = true;
+        }
+        //przeciwnik jest po lewej stronie
+        else
+        {
+            player.canMove = false;
+            player.GetComponent<Rigidbody2D>().AddForce(Vector2.right * knockbackForce, ForceMode2D.Impulse);
+            player.GetComponent<Rigidbody2D>().AddForce(Vector2.up * knockbackVerticalForce, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(knockbackDuration);
+            player.canMove = true;
+        }
     }
 }

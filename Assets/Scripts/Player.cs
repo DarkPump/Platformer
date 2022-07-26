@@ -6,9 +6,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Player : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpingPower;
     [SerializeField] private float jumpRadius;
+    public bool canMove = true;
+
     private PlayerControls playerControls;
     private Rigidbody2D rigidBody;
     private Animator animator;
@@ -22,8 +25,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private int damage = 1;
-    [SerializeField] private float attackRate = 2f;
-    private float nextAttackTime = 0f;
+
+    [SerializeField] private float attackDelay = 0.3f;
+    private bool isAttackBlocked = false;
+    
+
+
+    private Healthbar playerHealthbar;
 
     
 
@@ -31,16 +39,8 @@ public class Player : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerHealthbar = GetComponent<Healthbar>();
         playerControls = new PlayerControls();
-
-        // playerControls.Player.Movement.performed += ctx => 
-        // {
-        //     direction = ctx.ReadValue<float>();
-        // };
-        // playerControls.Player.Jump.performed += ctx =>
-        // {
-        //     jumpDirection = ctx.ReadValue<float>();
-        // };
     }
     private void Update() 
     {
@@ -64,8 +64,7 @@ public class Player : MonoBehaviour
     //Przypisanie wartości do kierunku zależnie od tego czy naciśnie się skręt w prawo czy w lewo
     public void Move(InputAction.CallbackContext context)
     {
-        direction = context.ReadValue<float>();
-        
+        direction = context.ReadValue<float>(); 
     }
 
     //Jeśli postać jest na ziemii oraz przycisk skoku został naciśnięty to skacz
@@ -81,19 +80,31 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        //Animacja ataku
-        if(context.performed && isGrounded)
-            animator.SetTrigger("Attack");
-        
-        //Przypisanie wszystkich trafionych przeciwników
-        Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach(Collider2D enemy in enemiesHit)
+        if(isGrounded)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(damage);
+            //Zablokowanie ataku
+            if(isAttackBlocked)
+                return;
+            //Animacja ataku
+            animator.SetTrigger("Attack");
+            
+            //Przypisanie wszystkich trafionych przeciwników
+            Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+            //Zadanie obrażeń wszystkim trafionym przeciwnikom
+            foreach(Collider2D enemy in enemiesHit)
+            {
+                enemy.GetComponent<Health>().TakeDamage(damage);
+            }
+
+            //Zablokowanie ataku
+            isAttackBlocked = true;
+            StartCoroutine(DelayAttack());
         }
+        
     }
 
+    //Hitbox broni
     private void OnDrawGizmosSelected()
     {
         if(attackPoint == null)
@@ -126,10 +137,17 @@ public class Player : MonoBehaviour
     {
         //Ruch postaci
         float movementValue = direction * speed * Time.fixedDeltaTime;
-        rigidBody.velocity = new Vector2(movementValue, rigidBody.velocity.y);
+        if(canMove)
+            rigidBody.velocity = new Vector2(movementValue, rigidBody.velocity.y);
 
         //Ustawienie wartości xVelocity na wartość prędkości postaci
         animator.SetFloat("xVelocity", Mathf.Abs(rigidBody.velocity.x));
         animator.SetFloat("yVelocity", rigidBody.velocity.y);
+    }
+
+    private IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(attackDelay);
+        isAttackBlocked = false;
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0170226575786524ca2465d23f714026
+guid: 9a88349ae48328447b9724d1cf063ce6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lost_hearts_anim_strip_5_0
+      name: herochar_hit_anim_strip_3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6fbcd101f60f3004384d35c6fceecf48
-      internalID: 910216329
+      spriteID: 4557031ee2e1ffb4c9b8a9d64c975269
+      internalID: 1461685794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lost_hearts_anim_strip_5_1
+      name: herochar_hit_anim_strip_3_1
       rect:
         serializedVersion: 2
         x: 16
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 941cad5302006af408f89c518a90b621
-      internalID: -718911755
+      spriteID: c147532cc0847904188fade566fd6ab8
+      internalID: 1034378763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lost_hearts_anim_strip_5_2
+      name: herochar_hit_anim_strip_3_2
       rect:
         serializedVersion: 2
         x: 32
@@ -160,29 +160,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9f49a43c3162ee48bf1f0e446c26a97
-      internalID: -1780391465
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: lost_hearts_anim_strip_5_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: acecf0b18851ca640871091a4c5e3068
-      internalID: -1834263266
+      spriteID: ad373033fd357714c9508c5c7da993f1
+      internalID: -812315226
       vertices: []
       indices: 
       edges: []
@@ -198,10 +177,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      lost_hearts_anim_strip_5_3: -1834263266
-      lost_hearts_anim_strip_5_1: -718911755
-      lost_hearts_anim_strip_5_2: -1780391465
-      lost_hearts_anim_strip_5_0: 910216329
+      herochar_hit_anim_strip_3_0: 1461685794
+      herochar_hit_anim_strip_3_2: -812315226
+      herochar_hit_anim_strip_3_1: 1034378763
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

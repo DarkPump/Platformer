@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mushroom_hurt_anim
+  m_Name: player_hit_anim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1315646899, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
-    - time: 0.21666667
-      value: {fileID: 1364033051, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
-    - time: 0.41666666
-      value: {fileID: 669497914, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
+      value: {fileID: 1461685794, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
+    - time: 0.18333334
+      value: {fileID: 1034378763, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
+    - time: 0.33333334
+      value: {fileID: -812315226, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,15 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1315646899, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
-    - {fileID: 1364033051, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
-    - {fileID: 669497914, guid: c4fc33cce3a2b324f89bc8717333f640, type: 3}
+    - {fileID: 1461685794, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
+    - {fileID: 1034378763, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
+    - {fileID: -812315226, guid: 9a88349ae48328447b9724d1cf063ce6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.43333334
+    m_StopTime: 0.35000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

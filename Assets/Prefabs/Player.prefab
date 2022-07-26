@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 2994500726192211749}
   - component: {fileID: 2994500726192211768}
   - component: {fileID: 2994500726192211769}
-  m_Layer: 0
+  - component: {fileID: 3999455407307483184}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +200,8 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+  damage: 1
+  attackRate: 2
 --- !u!114 &2994500726192211769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +280,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3999455407307483184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994500726192211745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000e22009542f1945a34cc66f2245628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
+  iFramesDuration: 1
 --- !u!1 &2994500726584857143
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2994500726584857096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +335,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2994500726835057855}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
