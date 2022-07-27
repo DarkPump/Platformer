@@ -12,9 +12,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpRadius;
     public bool canMove = true;
 
-    private PlayerControls playerControls;
-    private Rigidbody2D rigidBody;
-    private Animator animator;
     private float direction;
     private bool isFacingLeft;
     public Transform groundCheck;
@@ -30,8 +27,12 @@ public class Player : MonoBehaviour
     private bool isAttackBlocked = false;
     
 
-
+    [Header("References")]
     private Healthbar playerHealthbar;
+    private PlayerControls playerControls;
+    private Rigidbody2D rigidBody;
+    private Animator animator;
+    private Health playerHealth;
 
     
 
@@ -41,15 +42,12 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         playerHealthbar = GetComponent<Healthbar>();
         playerControls = new PlayerControls();
+        playerHealth = gameObject.GetComponent<Health>();
     }
     private void Update() 
     {
         IsGrounded();
-        //Odwrócenie postaci przy zmianie kierunku poruszania
-        if(isFacingLeft && direction > 0f)
-            Flip();
-        else if(!isFacingLeft && direction < 0f)
-            Flip();
+        ChangeDirection();
     }
 
     private void OnEnable()
@@ -131,6 +129,15 @@ public class Player : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
+    }
+
+    //Odwrócenie postaci przy zmianie kierunku poruszania
+    private void ChangeDirection()
+    {
+        if(isFacingLeft && direction > 0f)
+            Flip();
+        else if(!isFacingLeft && direction < 0f)
+            Flip();
     }
 
     private void FixedUpdate()

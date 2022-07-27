@@ -9,7 +9,6 @@ public class CoinInfo : MonoBehaviour
     private int currentCoins = 0;
     public int maxCoins;
     [SerializeField] private TMP_Text coins;
-    //[SerializeField] private List<GameObject> coinPickups = new List<GameObject>();
     [SerializeField] private GameObject coinPickups;
     
     private void Start() 

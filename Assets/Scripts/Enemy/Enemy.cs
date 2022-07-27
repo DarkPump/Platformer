@@ -13,17 +13,28 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float knockbackVerticalForce = 5f;
     [SerializeField] private float knockbackDuration = 0.25f;
 
+    [Header("References")]
+    [SerializeField] private EnemyPatrol enemyPatrol;
+    private Rigidbody2D rigidBody;
 
     private void Awake() 
     {
         animator = GetComponent<Animator>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void FixedUpdate() 
     {
-        
+        if(gameObject.CompareTag("Goblin"))
+        {
+            if(enemyPatrol.isMoving)
+                animator.SetFloat("xVelocity", 1);
+            else
+                animator.SetFloat("xVelocity", 0);
+        }
+
     }
+
     private void OnCollisionEnter2D(Collision2D other) 
     {
         Vector2 difference = (other.transform.position - transform.position).normalized;

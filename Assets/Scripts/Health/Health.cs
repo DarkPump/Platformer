@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     public int currentHealth;
     [System.NonSerialized] public bool isDead = false;
     private bool isInvulnerable = false;
+    public bool isTakingDamage = false;
     private Healthbar playerHealthbar;
 
     [Header("IFrames")]
@@ -28,12 +29,6 @@ public class Health : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //Otrzymywanie obrażeń + śmierć
@@ -68,9 +63,16 @@ public class Health : MonoBehaviour
     {
         foreach (Behaviour component in components)
             component.enabled = false;
+        if(!gameObject.CompareTag("Player"))
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<BoxCollider2D>().enabled = false;
         animator.SetTrigger("Death");
         isDead = true;
-        Destroy(gameObject, 1);
+    }
+
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 
     //Iframe

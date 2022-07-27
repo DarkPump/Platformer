@@ -128,7 +128,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3.14
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 196005289b917394ba8c82b8914c1699, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -141,7 +141,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2994500726192211745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2994500726192211745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 824404062bdd9274982e8c095cb8d7f7, type: 3}
   m_Name: 
@@ -288,16 +288,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2994500726192211745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 000e22009542f1945a34cc66f2245628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 0
+  isTakingDamage: 0
   iFramesDuration: 0.25
   animator: {fileID: 0}
-  components: []
+  components:
+  - {fileID: 2994500726192211768}
+  - {fileID: 3999455407307483184}
 --- !u!1 &2994500726584857143
 GameObject:
   m_ObjectHideFlags: 0

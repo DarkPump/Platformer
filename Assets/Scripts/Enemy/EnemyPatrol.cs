@@ -8,6 +8,10 @@ public class EnemyPatrol : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private List<Vector2> waypoints = new List<Vector2>();
     private int currentWaypointIndex = 0;
+    private int nextWaypointIndex = 1;
+    private bool isFacingLeft;
+    [System.NonSerialized] public bool isMoving;
+    float startingPosition;
 
     [Header("References")]
     [SerializeField] private Health health;
@@ -18,38 +22,47 @@ public class EnemyPatrol : MonoBehaviour
         {
             waypoints.Add(waypoint.position);
         }
+        startingPosition = gameObject.transform.parent.position.x;
     }
     private void Update() 
     {
         StartCoroutine(Patrol(waypoints));
-        //transform.position = Vector2.MoveTowards(transform.position, moveSpots[i], speed * Time.deltaTime)
     }
 
-    // private void Patrol(List<Transform> waypoints)
-    // {
-    //     //if(Vector2.Distance(transform.position, waypoints))
-
-    //     //transform.Translate(Vector2.right * movementSpeed * Time.deltaTime);
-
-    //     for(int i = 0; i < waypoints.Count; i++)
-    //     {
-    //         transform.parent.position = Vector2.MoveTowards(transform.position, waypoints[i].position, movementSpeed *Time.deltaTime);
-    //     }
-    // }
-
+    
     private IEnumerator Patrol(List<Vector2> waypoints)
     {
-        if(!health.isDead)
+        if(!health.isDead && waypoints[currentWaypointIndex] != waypoints[nextWaypointIndex])
         {
             if(Vector2.Distance(transform.parent.position, waypoints[currentWaypointIndex]) < 0.01f)
             {
+                isMoving = false;
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+                nextWaypointIndex = (nextWaypointIndex + 1) % waypoints.Count;
+                yield return new WaitForSeconds(1);
             }
             else
             {
+                isMoving = true;
+                ChangeDirection();
                 transform.parent.position = Vector2.MoveTowards(transform.parent.position, waypoints[currentWaypointIndex], movementSpeed);
             }
-            yield return new WaitForSeconds(1);
         }
+    }
+
+    private void Flip()
+    {
+        isFacingLeft = !isFacingLeft;
+        Vector3 localScale = transform.parent.localScale;
+        localScale.x *= -1f;
+        transform.parent.localScale = localScale;
+    }
+    private void ChangeDirection()
+    {
+        
+        if(isFacingLeft && transform.parent.position.x < waypoints[currentWaypointIndex].x)
+            Flip();
+        else if(!isFacingLeft && transform.parent.position.x > waypoints[currentWaypointIndex].x)
+            Flip();
     }
 }
