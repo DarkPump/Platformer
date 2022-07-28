@@ -80,6 +80,8 @@ MonoBehaviour:
   movementSpeed: 0.007
   waypoints: []
   health: {fileID: 3958151012625575195}
+  enemyMelee: {fileID: 0}
+  player: {fileID: 2994500726192211745, guid: 648cd7e5d22064748987ffbdbdd49fe2, type: 3}
 --- !u!1 &3958151012625575186
 GameObject:
   m_ObjectHideFlags: 0

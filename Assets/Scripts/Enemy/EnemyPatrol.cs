@@ -15,6 +15,8 @@ public class EnemyPatrol : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Health health;
+    [SerializeField] private EnemyMelee enemyMelee;
+    [SerializeField] private GameObject player;
 
     private void Start() 
     {
@@ -26,9 +28,21 @@ public class EnemyPatrol : MonoBehaviour
     }
     private void Update() 
     {
-        StartCoroutine(Patrol(waypoints));
+        if(enemyMelee != null)
+        {
+            if(enemyMelee.IsPlayerInSight())
+                ChasePlayer(player);
+            else
+                StartCoroutine(Patrol(waypoints));
+        }
+        else
+            StartCoroutine(Patrol(waypoints));
     }
 
+    private void ChasePlayer(GameObject player)
+    {
+        transform.parent.position = Vector2.MoveTowards(transform.parent.position, player.transform.position, movementSpeed * 2);
+    }
     
     private IEnumerator Patrol(List<Vector2> waypoints)
     {
@@ -39,13 +53,13 @@ public class EnemyPatrol : MonoBehaviour
                 isMoving = false;
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
                 nextWaypointIndex = (nextWaypointIndex + 1) % waypoints.Count;
-                yield return new WaitForSeconds(1);
             }
             else
             {
                 isMoving = true;
                 ChangeDirection();
                 transform.parent.position = Vector2.MoveTowards(transform.parent.position, waypoints[currentWaypointIndex], movementSpeed);
+                yield return new WaitForSeconds(1);
             }
         }
     }
