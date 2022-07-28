@@ -11,18 +11,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpingPower;
     [SerializeField] private float jumpRadius;
     public bool canMove = true;
-
     private float direction;
     private bool isFacingLeft;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+
+    [Header("Jump")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     private bool isGrounded;
 
+    [Header("Attack")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private int damage = 1;
-
     [SerializeField] private float attackDelay = 0.3f;
     private bool isAttackBlocked = false;
     

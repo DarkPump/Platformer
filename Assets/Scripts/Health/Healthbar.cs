@@ -6,13 +6,16 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health))]
 public class Healthbar : MonoBehaviour
 {
-    private Health playerHealth;
-    private int health;
-    private int numberOfHearts;
-    
+    [Header("References")]
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
+    private Health playerHealth;
+
+
+    private int health;
+    private int numberOfHearts;
+    
 
     private void Awake() 
     {

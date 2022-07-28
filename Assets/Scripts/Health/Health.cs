@@ -9,7 +9,6 @@ public class Health : MonoBehaviour
     public int currentHealth;
     [System.NonSerialized] public bool isDead = false;
     private bool isInvulnerable = false;
-    public bool isTakingDamage = false;
     private Healthbar playerHealthbar;
 
     [Header("IFrames")]

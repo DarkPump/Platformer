@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Animator animator;
-    [SerializeField] private Health playerHealth;
 
     [Header("Enemy parameters")]
     [SerializeField] private int damage;
@@ -16,6 +14,7 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     [SerializeField] private EnemyPatrol enemyPatrol;
     private Rigidbody2D rigidBody;
+    private Animator animator;
 
     private void Awake() 
     {

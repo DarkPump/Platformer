@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class EnemyMelee : MonoBehaviour
 {
-    [Header("Parameters")]
+    [Header("Sight Parameters")]
     [SerializeField] private float attackCooldown;
-    [SerializeField] private float range;
-    [SerializeField] private float colliderRange;
+    [SerializeField] private float xRangeSight;
+    [SerializeField] private float yRangeSight;
+    [SerializeField] private float colliderRangeSight;
     private float cooldownTimer = Mathf.Infinity;
+
+    [Header("Chase Parameters")]
+    [SerializeField] private float xRangeChase;
+    [SerializeField] private float yRangeChase;
+    [SerializeField] private float colliderRangeChase;
 
     [Header("Colliders")]
     [SerializeField] private BoxCollider2D boxCollider;
@@ -18,6 +24,7 @@ public class EnemyMelee : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator animator;
+    [SerializeField] private Health playerHealth;
 
     private void Awake() 
     {
@@ -41,14 +48,27 @@ public class EnemyMelee : MonoBehaviour
     public bool IsPlayerInSight()
     {
         RaycastHit2D hit = 
-            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * colliderRange * range * transform.localScale.x, 
-            new Vector2(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y), 0, Vector2.left, 0, playerLayer);
+            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * colliderRangeSight * xRangeSight * transform.localScale.x, 
+            new Vector2(boxCollider.bounds.size.x * xRangeSight, boxCollider.bounds.size.y * yRangeSight), 0, Vector2.left, 0, playerLayer);
+        return hit.collider != null;
+    }
+
+    public bool IsPlayerInChaseRange()
+    {
+        RaycastHit2D hit = 
+            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * colliderRangeChase * xRangeChase * transform.localScale.x, 
+            new Vector2(boxCollider.bounds.size.x * xRangeChase, boxCollider.bounds.size.y * yRangeChase), 0, Vector2.left, 0, playerLayer);
         return hit.collider != null;
     }
 
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * colliderRange * range * transform.localScale.x, new Vector2(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y));
+        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * colliderRangeSight * xRangeSight * transform.localScale.x,
+         new Vector2(boxCollider.bounds.size.x * xRangeSight, boxCollider.bounds.size.y * yRangeSight));
+
+         Gizmos.color = Color.red;
+         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * colliderRangeChase * xRangeChase * transform.localScale.x,
+         new Vector2(boxCollider.bounds.size.x * xRangeChase, boxCollider.bounds.size.y * yRangeChase));
     }
 }

@@ -6,6 +6,7 @@ public class EnemyPatrol : MonoBehaviour
 {
     [Header("Patrol")]
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float chaseSpeedMultiplier;
     [SerializeField] private List<Vector2> waypoints = new List<Vector2>();
     private int currentWaypointIndex = 0;
     private int nextWaypointIndex = 1;
@@ -30,8 +31,11 @@ public class EnemyPatrol : MonoBehaviour
     {
         if(enemyMelee != null)
         {
-            if(enemyMelee.IsPlayerInSight())
+            if(enemyMelee.IsPlayerInChaseRange())
+            {
                 ChasePlayer(player);
+                ChangeDirection();
+            }
             else
                 StartCoroutine(Patrol(waypoints));
         }
@@ -41,7 +45,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void ChasePlayer(GameObject player)
     {
-        transform.parent.position = Vector2.MoveTowards(transform.parent.position, player.transform.position, movementSpeed * 2);
+        transform.parent.position = Vector2.MoveTowards(transform.parent.position, player.transform.position, movementSpeed * Time.deltaTime * chaseSpeedMultiplier);
     }
     
     private IEnumerator Patrol(List<Vector2> waypoints)
@@ -58,7 +62,7 @@ public class EnemyPatrol : MonoBehaviour
             {
                 isMoving = true;
                 ChangeDirection();
-                transform.parent.position = Vector2.MoveTowards(transform.parent.position, waypoints[currentWaypointIndex], movementSpeed);
+                transform.parent.position = Vector2.MoveTowards(transform.parent.position, waypoints[currentWaypointIndex], movementSpeed * Time.deltaTime);
                 yield return new WaitForSeconds(1);
             }
         }
@@ -73,10 +77,30 @@ public class EnemyPatrol : MonoBehaviour
     }
     private void ChangeDirection()
     {
+        if(enemyMelee != null)
+        {
+            if(!enemyMelee.IsPlayerInChaseRange())
+        {
+            if(isFacingLeft && transform.parent.position.x < waypoints[currentWaypointIndex].x)
+                Flip();
+            else if(!isFacingLeft && transform.parent.position.x > waypoints[currentWaypointIndex].x)
+                Flip();
+        }
+            else
+            {
+                if(isFacingLeft && transform.parent.position.x < player.transform.position.x)
+                    Flip();
+                else if(!isFacingLeft && transform.parent.position.x > player.transform.position.x)
+                    Flip();
+            }
+        }
+        else
+        {
+            if(isFacingLeft && transform.parent.position.x < player.transform.position.x)
+                Flip();
+            else if(!isFacingLeft && transform.parent.position.x > player.transform.position.x)
+                Flip();
+        }
         
-        if(isFacingLeft && transform.parent.position.x < waypoints[currentWaypointIndex].x)
-            Flip();
-        else if(!isFacingLeft && transform.parent.position.x > waypoints[currentWaypointIndex].x)
-            Flip();
     }
 }
