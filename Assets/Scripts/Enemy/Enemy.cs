@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         Vector2 difference = (other.transform.position - transform.position).normalized;
         Vector2 force = difference * knockbackForce;
         Player player = other.gameObject.GetComponent<Player>();
+        //odrzucenie gracza
         if(player)
         {
             player.GetComponent<Health>().TakeDamage(damage);

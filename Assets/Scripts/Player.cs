@@ -29,11 +29,8 @@ public class Player : MonoBehaviour
     
 
     [Header("References")]
-    private Healthbar playerHealthbar;
-    private PlayerControls playerControls;
     private Rigidbody2D rigidBody;
     private Animator animator;
-    private Health playerHealth;
 
     
 
@@ -41,23 +38,11 @@ public class Player : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        playerHealthbar = GetComponent<Healthbar>();
-        playerControls = new PlayerControls();
-        playerHealth = gameObject.GetComponent<Health>();
     }
     private void Update() 
     {
         IsGrounded();
         ChangeDirection();
-    }
-
-    private void OnEnable()
-    {
-        playerControls.Player.Enable();
-    }
-    private void OnDisable()
-    {
-        playerControls.Player.Disable();
     }
 
     //Przypisanie wartości do kierunku zależnie od tego czy naciśnie się skręt w prawo czy w lewo

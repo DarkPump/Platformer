@@ -12,7 +12,6 @@ public class EnemyPatrol : MonoBehaviour
     private int nextWaypointIndex = 1;
     private bool isFacingLeft;
     [System.NonSerialized] public bool isMoving;
-    float startingPosition;
 
     [Header("References")]
     [SerializeField] private Health health;
@@ -25,7 +24,6 @@ public class EnemyPatrol : MonoBehaviour
         {
             waypoints.Add(waypoint.position);
         }
-        startingPosition = gameObject.transform.parent.position.x;
     }
     private void Update() 
     {
@@ -43,11 +41,12 @@ public class EnemyPatrol : MonoBehaviour
             StartCoroutine(Patrol(waypoints));
     }
 
+    //œciganie gracza
     private void ChasePlayer(GameObject player)
     {
         transform.parent.position = Vector2.MoveTowards(transform.parent.position, player.transform.position, movementSpeed * Time.deltaTime * chaseSpeedMultiplier);
     }
-    
+    //patrolowanie
     private IEnumerator Patrol(List<Vector2> waypoints)
     {
         if(!health.isDead && waypoints[currentWaypointIndex] != waypoints[nextWaypointIndex])
@@ -67,7 +66,7 @@ public class EnemyPatrol : MonoBehaviour
             }
         }
     }
-
+    //odwrócenie
     private void Flip()
     {
         isFacingLeft = !isFacingLeft;
@@ -75,6 +74,8 @@ public class EnemyPatrol : MonoBehaviour
         localScale.x *= -1f;
         transform.parent.localScale = localScale;
     }
+
+    //odwrócenie przeciwnika w kierunku gracza lub w stronê nastêpnego waypointa
     private void ChangeDirection()
     {
         if(enemyMelee != null)

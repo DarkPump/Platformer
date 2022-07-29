@@ -8,6 +8,7 @@ public class HealthPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
+        //Zbieranie serc
         if(other.CompareTag("Player") && other.GetType() == typeof(BoxCollider2D))
         {
             other.GetComponent<Health>().AddHealth(healthValue);

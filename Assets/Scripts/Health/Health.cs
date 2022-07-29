@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator animator;
     [SerializeField] private Behaviour[] components;
-    // Start is called before the first frame update
+
     private void Awake() 
     {
         animator = GetComponent<Animator>();
@@ -47,7 +47,7 @@ public class Health : MonoBehaviour
         }
         else
         {
-            if(gameObject.tag == "Player")
+            if(gameObject.CompareTag("Player"))
                 playerHealthbar.ChangeHeartSprite();
 
             if(!isDead)
@@ -65,10 +65,16 @@ public class Health : MonoBehaviour
         if(!gameObject.CompareTag("Player"))
             GetComponent<Rigidbody2D>().gravityScale = 0;
         GetComponent<BoxCollider2D>().enabled = false;
+        if (gameObject.CompareTag("Player"))
+        {
+            GameManager.instance.UpdateGameState(GameState.GameOver);
+            gameObject.GetComponent<Rigidbody2D>().mass = 50;
+        }
         animator.SetTrigger("Death");
         isDead = true;
     }
 
+    //Wyłączenie objektu po śmierci (przeciwnik oraz gracz)
     private void Deactivate()
     {
         gameObject.SetActive(false);
@@ -84,6 +90,7 @@ public class Health : MonoBehaviour
         isInvulnerable = false;
     }
 
+    //Metoda, która dodaje życie (wykorzystywana przy zbieraniu serc)
     public void AddHealth(int value)
     {
         currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);

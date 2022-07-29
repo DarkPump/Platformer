@@ -5,13 +5,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Variables")]
     public static GameManager instance;
     public GameState state;
     public static event Action<GameState> OnGameStateChanged;
 
     private void Awake() 
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(instance.gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     private void Start()
@@ -31,6 +42,9 @@ public class GameManager : MonoBehaviour
             case GameState.Win:
                 break;
             case GameState.GameOver:
+                UIManager.instance.GameOver();
+                break;
+            case GameState.Paused:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -45,5 +59,6 @@ public enum GameState
     Menu,
     Game,
     Win,
-    GameOver
+    GameOver,
+    Paused
 }

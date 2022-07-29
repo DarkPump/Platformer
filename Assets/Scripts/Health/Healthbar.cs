@@ -27,6 +27,7 @@ public class Healthbar : MonoBehaviour
         SetMaxHearts();
     }
 
+    //Ustawienie maksymalnej liczby serc
     public void SetMaxHearts()
     {
         numberOfHearts = playerHealth.maxHealth;
@@ -38,7 +39,7 @@ public class Healthbar : MonoBehaviour
                 hearts[i].enabled = false;
         }
     }
-
+    //Zmiana sprite'u serca
     public void ChangeHeartSprite()
     {
         health = playerHealth.currentHealth;

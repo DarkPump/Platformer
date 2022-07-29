@@ -44,7 +44,7 @@ public class EnemyMelee : MonoBehaviour
             }
         }   
     }
-
+    //Sprawdzanie czy gracz jest w zasiêgu
     public bool IsPlayerInSight()
     {
         RaycastHit2D hit = 
@@ -52,7 +52,7 @@ public class EnemyMelee : MonoBehaviour
             new Vector2(boxCollider.bounds.size.x * xRangeSight, boxCollider.bounds.size.y * yRangeSight), 0, Vector2.left, 0, playerLayer);
         return hit.collider != null;
     }
-
+    //Sprawdzanie czy gracz jest w zasiêgu gonienia
     public bool IsPlayerInChaseRange()
     {
         RaycastHit2D hit = 
@@ -60,7 +60,7 @@ public class EnemyMelee : MonoBehaviour
             new Vector2(boxCollider.bounds.size.x * xRangeChase, boxCollider.bounds.size.y * yRangeChase), 0, Vector2.left, 0, playerLayer);
         return hit.collider != null;
     }
-
+    //Wyœwietlenie zasiêgów
     private void OnDrawGizmos() 
     {
         Gizmos.color = Color.black;

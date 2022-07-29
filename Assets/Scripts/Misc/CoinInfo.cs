@@ -17,17 +17,20 @@ public class CoinInfo : MonoBehaviour
         ChangeCoinText();
     }
 
+    //Zmiana wyœwietlanej liczby pieniêdzy
     private void ChangeCoinText()
     {
         coins.text = currentCoins.ToString();
     }
 
+    //Dodawanie zebranych pieniêdzy
     public void AddCoins(int value)
     {
         currentCoins = Mathf.Clamp(currentCoins + value, 0, maxCoins);
         ChangeCoinText();
     }
 
+    //Ustawienie maksymalnej liczby pieniêdzy na liczbê obiektów pieniêdzy w hierarchi
     private void SetMaxCoins()
     {
         maxCoins = coinPickups.transform.childCount;
