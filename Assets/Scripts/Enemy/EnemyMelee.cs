@@ -9,6 +9,7 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private float xRangeSight;
     [SerializeField] private float yRangeSight;
     [SerializeField] private float colliderRangeSight;
+    [SerializeField] private int damage;
     private float cooldownTimer = Mathf.Infinity;
 
     [Header("Chase Parameters")]
@@ -50,6 +51,10 @@ public class EnemyMelee : MonoBehaviour
         RaycastHit2D hit = 
             Physics2D.BoxCast(boxCollider.bounds.center + transform.right * colliderRangeSight * xRangeSight * transform.localScale.x, 
             new Vector2(boxCollider.bounds.size.x * xRangeSight, boxCollider.bounds.size.y * yRangeSight), 0, Vector2.left, 0, playerLayer);
+
+        if (hit.collider != null)
+            playerHealth = hit.transform.GetComponent<Health>();
+
         return hit.collider != null;
     }
     //Sprawdzanie czy gracz jest w zasiêgu gonienia
@@ -60,6 +65,15 @@ public class EnemyMelee : MonoBehaviour
             new Vector2(boxCollider.bounds.size.x * xRangeChase, boxCollider.bounds.size.y * yRangeChase), 0, Vector2.left, 0, playerLayer);
         return hit.collider != null;
     }
+
+    private void DamagePlayer()
+    {
+        if(IsPlayerInSight())
+        {
+            playerHealth.TakeDamage(damage);
+        }
+    }
+
     //Wyœwietlenie zasiêgów
     private void OnDrawGizmos() 
     {

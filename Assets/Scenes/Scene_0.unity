@@ -8832,6 +8832,10 @@ PrefabInstance:
       value: 5.66
       objectReference: {fileID: 0}
     - target: {fileID: 5120508855422897251, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120508855422897251, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: xRange
       value: 4.64
       objectReference: {fileID: 0}
@@ -8845,7 +8849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5120508855422897251, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: xRangeSight
-      value: 3
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5120508855422897251, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: yRangeChase
@@ -8865,7 +8869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5120508855422897251, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: colliderRangeSight
-      value: 0.335
+      value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 7690366352388664817, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8881,6 +8885,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7690366352693581293, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
       propertyPath: chaseSpeedMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690366352800951562, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7690366352800951566, guid: 8c1fcf71de270f34a81508657a379b24, type: 3}
