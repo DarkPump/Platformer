@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +28,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateGameState(GameState.Menu);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            UpdateGameState(GameState.Menu);
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
+            UpdateGameState(GameState.Game);
     }
 
     public void UpdateGameState(GameState newState)
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
             case GameState.Game:
                 break;
             case GameState.Win:
+                UIManager.instance.Victory();
                 break;
             case GameState.GameOver:
                 UIManager.instance.GameOver();

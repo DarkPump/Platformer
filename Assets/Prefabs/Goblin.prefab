@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.007
+  chaseSpeedMultiplier: 0
   waypoints: []
   health: {fileID: 7690366352800951564}
   enemyMelee: {fileID: 5120508855422897251}
@@ -283,7 +284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929c67b82cd763e4f94ddd9c34565c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 3999455407307483184, guid: 648cd7e5d22064748987ffbdbdd49fe2, type: 3}
   damage: 1
   knockbackForce: 5
   knockbackVerticalForce: 3
@@ -303,7 +303,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   currentHealth: 0
-  isTakingDamage: 0
   iFramesDuration: 0.25
   animator: {fileID: 0}
   components: []
@@ -320,10 +319,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 2
-  range: 3
-  colliderRange: 0.3
+  xRangeSight: 1.2
+  yRangeSight: 1.5
+  colliderRangeSight: 0.31
+  damage: 1
+  xRangeChase: 14.01
+  yRangeChase: 2
+  colliderRangeChase: 0.17
   boxCollider: {fileID: 7690366352800951562}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   animator: {fileID: 0}
+  playerHealth: {fileID: 0}

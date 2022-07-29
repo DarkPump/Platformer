@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject victoryUI;
     [SerializeField] private PlayerInput playerInput; 
     public static UIManager instance;
 
@@ -27,6 +28,9 @@ public class UIManager : MonoBehaviour
         }
         if(gameOverUI != null)
             gameOverUI.SetActive(false);
+
+        if (victoryUI != null)
+            victoryUI.SetActive(false);
     }
 
     private void Start()
@@ -73,6 +77,7 @@ public class UIManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.instance.UpdateGameState(GameState.Game);
         Time.timeScale = System.Convert.ToInt32(true);
     } 
     //Powrót do menu
@@ -86,6 +91,13 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Victory()
+    {
+        victoryUI.SetActive(true);
+        Time.timeScale = System.Convert.ToInt32(false);
+    }
+
     //Wystartowanie gry
     public void StartGame()
     {

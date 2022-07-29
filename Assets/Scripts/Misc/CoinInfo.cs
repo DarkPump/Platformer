@@ -17,6 +17,11 @@ public class CoinInfo : MonoBehaviour
         ChangeCoinText();
     }
 
+    private void Update()
+    {
+        GameVictory();
+    }
+
     //Zmiana wyœwietlanej liczby pieniêdzy
     private void ChangeCoinText()
     {
@@ -34,5 +39,13 @@ public class CoinInfo : MonoBehaviour
     private void SetMaxCoins()
     {
         maxCoins = coinPickups.transform.childCount;
+    }
+
+    private void GameVictory()
+    {
+        if(currentCoins == maxCoins)
+        {
+            GameManager.instance.UpdateGameState(GameState.Win);
+        }
     }
 }
