@@ -37,7 +37,6 @@ public class EnemyMelee : MonoBehaviour
         cooldownTimer += Time.deltaTime;
         if(IsPlayerInSight())
         {
-            Debug.Log("Player in sight!");
             if(cooldownTimer >= attackCooldown)
             {
                 cooldownTimer = 0;

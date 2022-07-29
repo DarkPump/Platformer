@@ -56,7 +56,6 @@ public class Player : MonoBehaviour
     {
         if(context.performed && isGrounded)
         {
-            Debug.Log("Jump");
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpingPower * Time.fixedDeltaTime);
             animator.SetBool("Jump", true);
         }
