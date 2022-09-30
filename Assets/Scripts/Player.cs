@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if(isGrounded)
+        if(context.performed && isGrounded)
         {
             //Zablokowanie ataku
             if(isAttackBlocked)
